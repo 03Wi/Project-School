@@ -1,13 +1,12 @@
 package com.project.school.controller;
 
-import com.project.school.dto.CourseDto;
-import com.project.school.model.Course;
-import com.project.school.service.ICourseService;
+import com.project.school.dto.RoleDto;
+import com.project.school.model.Role;
+import com.project.school.service.IRoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,36 +18,35 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/school/course")
+@RequestMapping("/school/role")
 @RequiredArgsConstructor
-public class CourseController {
+public class RoleController {
 
-    private final ICourseService service;
+    private final IRoleService service;
 
     @Qualifier("defaultMapper")
     private final ModelMapper mapper;
 
     @GetMapping("/all")
-    public ResponseEntity<Page<CourseDto>> readAll(Pageable pageable){
+    public ResponseEntity<Page<RoleDto>> readAll(Pageable pageable){
 
-        Page<Course> page = service.findAll(pageable);
-        Page<CourseDto> courseDtos = page.map(this::convertToDto);
-        return new ResponseEntity<>(courseDtos, HttpStatus.OK);
+        Page<Role> page = service.findAll(pageable);
+        Page<RoleDto> roleDtos = page.map(this::convertToDto);
+        return new ResponseEntity<>(roleDtos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDto> readById(@PathVariable("id") Integer id) {
+    public ResponseEntity<RoleDto> readById(@PathVariable("id") Integer id) {
 
-        Course course = service.findById(id);
-        return new ResponseEntity<>(convertToDto(course), HttpStatus.OK);
+        Role role = service.findById(id);
+        return new ResponseEntity<>(convertToDto(role), HttpStatus.OK);
     }
-
 
     @PostMapping("/save")
     @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
-    public ResponseEntity<CourseDto> save( @Valid @RequestBody CourseDto courseDto) {
+    public ResponseEntity<RoleDto> save( @Valid @RequestBody RoleDto roleDto) {
 
-        Course param = service.save(convertToCourse(courseDto));
+        Role param = service.save(convertToRole(roleDto));
         return new ResponseEntity<>(convertToDto(param), HttpStatus.CREATED);
     }
 
@@ -62,17 +60,17 @@ public class CourseController {
 
     @PutMapping("/{id}")
     @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
-    public ResponseEntity<CourseDto> update(@Valid @RequestBody CourseDto course, @PathVariable("id") Integer id) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    public ResponseEntity<RoleDto> update(@Valid @RequestBody RoleDto role, @PathVariable("id") Integer id) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
-        Course param = service.update(convertToCourse(course), id);
+        Role param = service.update(convertToRole(role), id);
         return new ResponseEntity<>(convertToDto(param), HttpStatus.OK);
     }
 
-    private CourseDto convertToDto(Course course){
-        return mapper.map(course, CourseDto.class);
+    private RoleDto convertToDto(Role role){
+        return mapper.map(role, RoleDto.class);
     }
-    private Course convertToCourse(CourseDto courseDto){
-        return mapper.map(courseDto, Course.class);
+    private Role convertToRole(RoleDto roleDto){
+        return mapper.map(roleDto, Role.class);
     }
 }
 

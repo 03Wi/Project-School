@@ -24,6 +24,7 @@ public class DetailRegistration {
     @ManyToOne
     @JoinColumn(name = "idRegistration", nullable = false, foreignKey = @ForeignKey(name = "FK_DETAIL-REGISTRATION_REGISTRATION"))
     private Registration registration;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCourse", foreignKey = @ForeignKey(name = "FK_DETAILREGISTRATION_COURSE"))
     private Course course;

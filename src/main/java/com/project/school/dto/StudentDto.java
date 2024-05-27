@@ -3,10 +3,7 @@ package com.project.school.dto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -15,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentDto {
 
@@ -23,17 +20,24 @@ public class StudentDto {
 
     @NotNull
     @NotEmpty
+    @Size(min = 2)
+    @Pattern(regexp = "[A-Za-z]+")
     private String name;
 
     @NotNull
     @NotEmpty
+    @Size(min = 2)
+    @Pattern(regexp = "[A-Za-z]+")
     private String lastName;
 
     @NotNull
     @NotEmpty
+    @Size(min = 10, max = 10)
+    @Pattern(regexp = "\\d{10}")
     private String dni;
 
     @NotNull
-    @Min(value = 2)
+    @Min(value = 0)
+    @PositiveOrZero
     private Integer age;
 }

@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IStudentRepo extends IGenericRepo <Student,Integer> {
 
-
 }
 
 

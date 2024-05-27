@@ -10,24 +10,30 @@ import org.springframework.web.server.MethodNotAllowedException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class ControlGlobalException {
+public class ControlGlobalException{
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MessageException> handleException(Exception ex, WebRequest path) {
+
         MessageException messageShow = new MessageException(LocalDateTime.now(), ex.getMessage(), path.getContextPath());
-        return new ResponseEntity<>(messageShow, org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(messageShow,
+                org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NoSuchMethodException.class)
     public ResponseEntity<MessageException> handleExceptionNotMethod(Exception ex, WebRequest path) {
+
         MessageException messageShow = new MessageException(LocalDateTime.now(), ex.getMessage(), path.getContextPath());
-        return new ResponseEntity<>(messageShow, HttpStatus.METHOD_NOT_ALLOWED);
+        return new ResponseEntity<>(messageShow,
+                HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(ModelNotFoundException.class)
     public ResponseEntity<MessageException> handleExceptionNotFound(Exception ex, WebRequest path) {
+
         MessageException messageShow = new MessageException(LocalDateTime.now(), ex.getMessage(),path.getContextPath());
-        return new ResponseEntity<>(messageShow, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(messageShow,
+                HttpStatus.NOT_FOUND);
     }
 
 

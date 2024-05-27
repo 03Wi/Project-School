@@ -7,10 +7,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,17 +25,15 @@ public class RegistrationController {
 
     private final IRegistrationService service;
 
-    @Qualifier("mapperDefault")
+    @Qualifier("defaultMapper")
     private final ModelMapper mapper;
 
     @GetMapping("/all")
-    public ResponseEntity<List<RegistrationDto>> readAll(){
+    public ResponseEntity<Page<RegistrationDto>> readAll(Pageable pageable){
 
-        List<Registration> list = service.findAll();
-        List<RegistrationDto> listDto = list.stream()
-                .map(this::convertToDto)
-                .toList();
-        return new ResponseEntity<>(listDto, HttpStatus.OK);
+        Page<Registration> page = service.findAll(pageable);
+        Page<RegistrationDto> registrationDtoPage = page.map(this::convertToDto);
+        return new ResponseEntity<>(registrationDtoPage, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -41,7 +43,8 @@ public class RegistrationController {
         return new ResponseEntity<>(convertToDto(registration), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/save")
+    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<RegistrationDto> save( @Valid @RequestBody RegistrationDto registration) {
 
         Registration param = service.save(convertToRegistration(registration));
@@ -49,16 +52,18 @@ public class RegistrationController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id){
 
         service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<RegistrationDto> update(@Valid @PathVariable("id") RegistrationDto registration, Integer id) {
+    @PutMapping("/update/{id}")
+    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
+    public ResponseEntity<RegistrationDto> update(@Valid @RequestBody RegistrationDto registration, @PathVariable("id") Integer id) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
-        Registration param = service.save(convertToRegistration(registration));
+        Registration param = service.update(convertToRegistration(registration), id);
         return new ResponseEntity<>(convertToDto(param), HttpStatus.OK);
     }
 

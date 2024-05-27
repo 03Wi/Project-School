@@ -7,11 +7,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,17 +26,16 @@ public class StudentController {
 
     private final IStudentService service;
 
-    @Qualifier("mapperDefault")
+    @Qualifier("defaultMapper")
     private final ModelMapper mapper;
 
+//    @PreAuthorize("@authServiceImpl.hasAccess('/readAll')")
     @GetMapping("/all")
-    public ResponseEntity<List<StudentDto>> readAll(){
+    public ResponseEntity<Page<StudentDto>> readAll(Pageable pageable){
 
-        List<Student> list = service.findAll();
-        List<StudentDto> listDto = list.stream()
-                .map(this::convertToDto)
-                .toList();
-        return new ResponseEntity<>(listDto, HttpStatus.OK);
+        Page<Student> page = service.findAll(pageable);
+        Page<StudentDto> pageDto = page.map(this::convertToDto);
+        return new ResponseEntity<>(pageDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -41,7 +45,7 @@ public class StudentController {
         return new ResponseEntity<>(convertToDto(student), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public ResponseEntity<StudentDto> create( @Valid @RequestBody StudentDto student) {
 
         Student param = service.save(convertToStudent(student));
@@ -50,22 +54,23 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id){
 
         service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PostMapping("/{id}")
-    public ResponseEntity<StudentDto> update(@Valid @PathVariable("id") StudentDto student, Integer id) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StudentDto> update(@Valid @RequestBody StudentDto student, @PathVariable Integer id) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
-        Student param = service.save(convertToStudent(student));
+        Student param = service.update(convertToStudent(student), id);
         return new ResponseEntity<>(convertToDto(param), HttpStatus.OK);
     }
 
     @GetMapping("/age/desc")
-    public ResponseEntity<List<StudentDto>> studentByOrderAgeDesc() {
+    public ResponseEntity<List<StudentDto>> studentByOrderAgeDesc(Pageable pageable) {
 
-        List<StudentDto>  list = service.findAllByOrderAgeDesc().stream().map(this::convertToDto).collect(Collectors.toList());
+        List<StudentDto>  list = service.findAllByOrderAgeDesc(pageable).stream().map(this::convertToDto).collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     private StudentDto convertToDto(Student student){

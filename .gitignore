@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### SRC ###
+src/main/resources/application-dev.properties/
+src/main/resources/application-prod.properties/
+src/main/java/com/project/school/controller/RestTemplateController.java
+src/main/java/com/project/school/config/RestConfig.java

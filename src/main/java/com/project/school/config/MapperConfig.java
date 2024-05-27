@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class MapperConfig {
     //Si es necesario mapear explicitamente un atributo al DTO
 
-    @Bean("mapperDefault")
+    @Bean("defaultMapper")
     public ModelMapper mapper(){
         return new ModelMapper();
     }

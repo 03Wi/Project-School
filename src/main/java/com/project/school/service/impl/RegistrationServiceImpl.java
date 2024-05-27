@@ -1,14 +1,14 @@
 package com.project.school.service.impl;
 
 import com.project.school.model.Registration;
-import com.project.school.model.Student;
 import com.project.school.repository.IGenericRepo;
 import com.project.school.repository.IRegistrationRepo;
 import com.project.school.service.IRegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,8 +20,10 @@ import static java.util.stream.Collectors.*;
 public class RegistrationServiceImpl extends CRUDImpl<Registration, Integer> implements IRegistrationService {
 
     private final IRegistrationRepo repo;
+
     @Override
     public IGenericRepo<Registration, Integer> getRepo() {
+
         return repo;
     }
 
@@ -30,14 +32,27 @@ public class RegistrationServiceImpl extends CRUDImpl<Registration, Integer> imp
 
         List<Registration> courseAndStudentsRel = getRepo().findAll(); //Results BD
 
-        return courseAndStudentsRel
+        var relCourse = courseAndStudentsRel
                     .stream()
-                    .flatMap(r -> r.getDetailRegistration() //Se podria corregir para dejar el value como el object :33
+                    .flatMap(r -> r.getDetailRegistration()
                             .stream()
                             .map(c -> Map.entry(c.getCourse().getName(), //Key
-                                                r.getStudent().getName() +" "+ r.getStudent().getLastName()))) //Value
-                    .collect(groupingBy(Map.Entry::getKey,
-                             mapping(Map.Entry::getValue, toList())));
+                                                r.getStudent().getName().concat(" ")
+                                                        + r.getStudent().getLastName()))) //Value
+                    .collect(groupingBy(
+                            Map.Entry::getKey,
+                            mapping(Map.Entry::getValue, toList())));
 
+
+        //Order
+        return relCourse.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (oldValue, newValue) -> oldValue, LinkedHashMap::new
+                        ));
         }
+
 }
