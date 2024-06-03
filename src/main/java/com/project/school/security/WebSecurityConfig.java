@@ -54,7 +54,11 @@ public class WebSecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(antMatcher("/school/login")).permitAll()
+                        .requestMatchers(antMatcher("/school/*/*")).permitAll()
+                        .requestMatchers(antMatcher("/school/role/save")).permitAll()
+                        .requestMatchers(antMatcher("/school/user/save")).permitAll()
                         .requestMatchers(antMatcher("/school/rest/**")).permitAll()
+//                        .requestMatchers(antMatcher("/swagger-ui/**/v3/api-docs/**")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

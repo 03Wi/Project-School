@@ -29,6 +29,10 @@ public class DetailRegistration {
     @JoinColumn(name = "idCourse", foreignKey = @ForeignKey(name = "FK_DETAILREGISTRATION_COURSE"))
     private Course course;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idTeacher", foreignKey = @ForeignKey(name = "FK_DETAILREGISTRATION_TEACHER"))
+    private Teacher teacher;
+
     @Column(nullable = false, length = 10)
     private String classroom;
 

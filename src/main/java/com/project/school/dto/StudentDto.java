@@ -25,6 +25,9 @@ public class StudentDto {
     private String name;
 
     @NotNull
+    private UserDto user;
+
+    @NotNull
     @NotEmpty
     @Size(min = 2)
     @Pattern(regexp = "[A-Za-z]+")
@@ -32,7 +35,6 @@ public class StudentDto {
 
     @NotNull
     @NotEmpty
-    @Size(min = 10, max = 10)
     @Pattern(regexp = "\\d{10}")
     private String dni;
 

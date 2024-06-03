@@ -14,9 +14,12 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     @EqualsAndHashCode.Include
     private Integer idStudent;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    private User user;
 
     @Column(nullable = false, length = 30)
     private String name;

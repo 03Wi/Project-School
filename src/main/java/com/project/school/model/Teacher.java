@@ -7,37 +7,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
-public class Course {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     @EqualsAndHashCode.Include
-    private Integer idCourse;
+    private Integer idTeacher;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    private User user;
 
     @Column(nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 30, unique = true)
-    private String acronyms;
-
-    @Column(nullable = false, length = 200)
-    private String description;
-
-
     @Column(nullable = false, length = 30)
-    private String classroom;
+    private String lastName;
 
-    @Column(nullable = false)
-    private boolean enabled;
+    @Column(nullable = false, length = 10, unique = true)
+    private String dni;
 
+    @Column(nullable = false, length = 2)
+    private Integer age;
 }

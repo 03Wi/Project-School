@@ -1,6 +1,5 @@
 package com.project.school.controller;
 
-
 import com.project.school.security.JwtGenerateUtil;
 import com.project.school.security.JwtRequest;
 import com.project.school.security.JwtResponse;
@@ -8,6 +7,7 @@ import com.project.school.security.JwtUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Profile({"dev", "prod"})
+@PreAuthorize("permitAll()")
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;

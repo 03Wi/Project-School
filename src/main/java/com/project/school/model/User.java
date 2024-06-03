@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class User {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include

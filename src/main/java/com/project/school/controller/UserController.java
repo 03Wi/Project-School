@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
+//    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<UserDto> save( @Valid @RequestBody UserDto userDto) {
 
         User param = service.save(convertToUser(userDto));
