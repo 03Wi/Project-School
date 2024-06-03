@@ -1,6 +1,12 @@
 # Project-School
-Este proyecto educativo, desarrollado en Java mediante Spring Boot, brinda la capacidad de administrar cursos, estudiantes y el proceso de matrícula. Ofrece la oportunidad de registrar información detallada sobre los cursos disponibles y los alumnos matriculados en ellos. Además de las operaciones básicas de creación, lectura, actualización y eliminación (CRUD), incluye dos consultas para obtener datos filtrados utilizando programación funcional. Estas consultas permiten un acceso más específico a la información, lo que facilita la gestión y organización de los datos. A pesar de estas funcionalidades, no cuenta con la integración de Spring Security.
+Desarrollo de una API REST para un sistema de gestión escolar utilizando Java y Spring Boot. Implementación del paradigma funcional para el tratamiento de datos. Pruebas unitarias desarrolladas con JUnit y Mockito para prever y verificar su correcto funcionamiento. Además, integración con Spring Security para proporcionar una capa adicional de seguridad y fiabilidad.
+## Diagrama entidad - relacion
+![Diagrama entidad relacion](src/main/java/com/project/school/img/modelo_entidad_relacion.png)
+
 ## Dates of ingress for testing
+
+
+# Swagger in process
 ### Course: 
 {
   "name": "Computer Science",
