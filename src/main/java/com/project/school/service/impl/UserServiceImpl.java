@@ -19,8 +19,4 @@ public class UserServiceImpl extends CRUDImpl<User, Integer> implements IUserSer
         return repo;
     }
 
-    @Override
-    public User findByUserName(String username) {
-        return repo.findByUserName(username);
-    }
 }

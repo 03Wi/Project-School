@@ -1,6 +1,9 @@
 package com.project.school.security;
 
 
+import com.project.school.security.jwt.JwtAuthorizationEntryPoint;
+import com.project.school.security.jwt.JwtRequestFilter;
+import com.project.school.security.jwt.JwtUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,11 +57,12 @@ public class WebSecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(antMatcher("/school/login")).permitAll()
-                        .requestMatchers(antMatcher("/school/*/*")).permitAll()
-                        .requestMatchers(antMatcher("/school/role/save")).permitAll()
+                        .requestMatchers(antMatcher("/swagger-ui/*")).permitAll()
+//                        .requestMatchers(antMatcher("/school/rest/**")).permitAll()
                         .requestMatchers(antMatcher("/school/user/save")).permitAll()
-                        .requestMatchers(antMatcher("/school/rest/**")).permitAll()
-//                        .requestMatchers(antMatcher("/swagger-ui/**/v3/api-docs/**")).permitAll()
+//                        .requestMatchers(antMatcher("/school/user/all")).permitAll()
+//                        .requestMatchers(antMatcher("/school/role/all")).permitAll()
+//                        .requestMatchers(antMatcher("/school/role/save")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

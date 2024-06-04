@@ -1,4 +1,4 @@
-package com.project.school.security;
+package com.project.school.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

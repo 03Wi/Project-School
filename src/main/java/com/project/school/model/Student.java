@@ -17,7 +17,7 @@ public class Student {
     @EqualsAndHashCode.Include
     private Integer idStudent;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 

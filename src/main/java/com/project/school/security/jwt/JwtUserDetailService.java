@@ -1,4 +1,4 @@
-package com.project.school.security;
+package com.project.school.security.jwt;
 
 import com.project.school.exception.ModelNotFoundException;
 import com.project.school.model.User;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor

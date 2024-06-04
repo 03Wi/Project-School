@@ -1,10 +1,11 @@
 package com.project.school.controller;
 
-import com.project.school.security.JwtGenerateUtil;
-import com.project.school.security.JwtRequest;
-import com.project.school.security.JwtResponse;
-import com.project.school.security.JwtUserDetailService;
+import com.project.school.security.jwt.JwtGenerateUtil;
+import com.project.school.security.jwt.JwtRequest;
+import com.project.school.security.jwt.JwtResponse;
+import com.project.school.security.jwt.JwtUserDetailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Profile({"dev", "prod"})
 @PreAuthorize("permitAll()")
+@Slf4j
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
@@ -33,6 +35,8 @@ public class LoginController {
         authenticate(request.getUsername(), request.getPassword());
         UserDetails userDetails = jwtUserDetailService.loadUserByUsername(request.getUsername());
         final String token = jwtGenerateUtil.generateToken(userDetails);
+        log.info(token);
+        log.info("Problema tecnico");
         return ResponseEntity.ok(new JwtResponse(token));
     }
 

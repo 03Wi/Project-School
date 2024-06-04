@@ -43,7 +43,7 @@ public class RoleController {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
+//    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<RoleDto> save( @Valid @RequestBody RoleDto roleDto) {
 
         Role param = service.save(convertToRole(roleDto));

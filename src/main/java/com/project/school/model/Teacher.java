@@ -22,7 +22,7 @@ public class Teacher {
     @EqualsAndHashCode.Include
     private Integer idTeacher;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 

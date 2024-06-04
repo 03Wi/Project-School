@@ -5,6 +5,4 @@ import com.project.school.model.User;
 
 public interface IUserService extends ICRUD <User,Integer> {
 
-    User findByUserName(String username);
-
 }

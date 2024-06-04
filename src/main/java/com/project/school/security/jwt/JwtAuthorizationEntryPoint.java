@@ -1,4 +1,4 @@
-package com.project.school.security;
+package com.project.school.security.jwt;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +27,7 @@ public class JwtAuthorizationEntryPoint implements AuthenticationEntryPoint{
             message = "UserName is invalid or not found";
         }
 
-        MessageException msmException = new MessageException(LocalDateTime.now(), message, request.getContextPath());
+        MessageException msmException = new MessageException(LocalDateTime.now(), message, request.getServletPath());
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(convertToJson(msmException));
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
