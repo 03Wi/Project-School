@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -147,7 +148,7 @@ public class StudentControllerTest {
                 get("/school/student/"+ id)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isNotFound())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof ModelNotFoundException));
+                .andExpect(result -> assertInstanceOf(ModelNotFoundException.class, result.getResolvedException()));
 
     }
 

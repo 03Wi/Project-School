@@ -10,6 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.reflect.InvocationTargetException;
@@ -71,7 +74,8 @@ public class StudentServiceTest {
     void orderAgeStudents() {
 
         when(repo.findAll()).thenReturn(list);
-        List<Student> result = service.findAllByOrderAgeDesc();
+        Pageable page = PageRequest.of(1, 1);
+        List<Student> result = service.findAllByOrderAgeDesc(page);
 
         assertEquals(3, result.size());
         assertEquals("name", result.get(0).getName());
