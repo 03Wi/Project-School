@@ -60,7 +60,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        jwt-->
+        <!--        jwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -82,8 +82,6 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -95,11 +93,16 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.5.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>2.5.0</version>
+        </dependency>
 
     </dependencies>
 
     <profiles>
-<!--        development profile-->
+        <!--        development profile-->
         <profile>
             <id>dev</id>
             <activation>
@@ -121,7 +124,7 @@
                 </resources>
             </build>
         </profile>
-<!--        Production profile-->
+        <!--        Production profile-->
         <profile>
             <id>prod</id>
             <activation>
@@ -153,7 +156,7 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <excludes>
-<!--<exclude>application-*.properties</exclude>-->
+                    <!--<exclude>application-*.properties</exclude>-->
                 </excludes>
             </resource>
         </resources>

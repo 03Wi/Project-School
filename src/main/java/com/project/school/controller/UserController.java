@@ -3,6 +3,7 @@ package com.project.school.controller;
 import com.project.school.dto.UserDto;
 import com.project.school.model.User;
 import com.project.school.service.IUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/school/user")
 @RequiredArgsConstructor
+@Tag(name = "USER Controller")
 public class UserController {
 
     private final IUserService service;
