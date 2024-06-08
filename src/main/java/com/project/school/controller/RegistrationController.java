@@ -1,8 +1,10 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.RegistrationDto;
 import com.project.school.model.Registration;
 import com.project.school.service.IRegistrationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/school/registration")
 @RequiredArgsConstructor
+@Tag(name = "Registration", description = SwaggerConfig.description)
 public class RegistrationController {
 
     private final IRegistrationService service;

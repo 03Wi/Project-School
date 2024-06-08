@@ -1,8 +1,10 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.TeacherDto;
 import com.project.school.model.Teacher;
 import com.project.school.service.ITeacherService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/school/teacher")
 @RequiredArgsConstructor
+@Tag(name = "Teacher", description = SwaggerConfig.description)
 public class TeacherController {
 
     private final ITeacherService service;

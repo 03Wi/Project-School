@@ -1,8 +1,10 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.RoleDto;
 import com.project.school.model.Role;
 import com.project.school.service.IRoleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/school/role")
 @RequiredArgsConstructor
+@Tag(name = "Role", description = SwaggerConfig.description)
 public class RoleController {
 
     private final IRoleService service;

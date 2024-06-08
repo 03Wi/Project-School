@@ -21,8 +21,8 @@ import org.springframework.http.HttpHeaders;
                 termsOfService = "example.com",
                 version = "1.0.1",
                 contact = @Contact(
-                        name = "Wilson Osorio",
-                        url = "Example.html",
+                        name = "Wilson Osorio ",
+                        url = "https://github.com/03Wi",
                         email = "email@gmail.com"
                 ),
                 license = @License(
@@ -55,5 +55,6 @@ import org.springframework.http.HttpHeaders;
 )
 public class SwaggerConfig {
 
+    public static final String description = "This controller allows registration, editing, creation, updating, etc";
 }
 

@@ -1,5 +1,6 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.UserDto;
 import com.project.school.model.User;
 import com.project.school.service.IUserService;
@@ -8,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,12 +18,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/school/user")
 @RequiredArgsConstructor
-@Tag(name = "USER Controller")
+@Tag(name = "USER", description = SwaggerConfig.description)
 public class UserController {
 
     private final IUserService service;

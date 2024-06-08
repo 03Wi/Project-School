@@ -1,9 +1,11 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.ScheduleDto;
 import com.project.school.model.Schedule;
 import com.project.school.service.IScheduleService;
 import com.project.school.service.IScheduleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/school/schedule")
 @RequiredArgsConstructor
 @PreAuthorize("@authServiceImpl.hasAccess('USER, ADMIN')")
+@Tag(name = "Schedule", description = SwaggerConfig.description)
 public class ScheduleController {
 
     private final IScheduleService service;

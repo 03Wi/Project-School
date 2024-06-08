@@ -1,8 +1,10 @@
 package com.project.school.controller;
 
+import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.CourseScheduleDto;
 import com.project.school.model.CourseSchedule;
 import com.project.school.service.ICourseScheduleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/school/courseSchedule")
 @RequiredArgsConstructor
+@Tag(name = "Course and Schedule", description = SwaggerConfig.description)
 public class CourseScheduleController {
 
     private final ICourseScheduleService service;
