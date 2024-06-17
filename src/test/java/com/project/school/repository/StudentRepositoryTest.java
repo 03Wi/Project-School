@@ -17,7 +17,6 @@ import static org.mockito.Mockito.*;
 @DataJpaTest
 public class StudentRepositoryTest {
 
-
     @MockBean
     private IStudentRepo repo;
 
@@ -41,7 +40,6 @@ public class StudentRepositoryTest {
                 .dni("1000000001")
                 .lastName("lastName")
                 .age(2).build();
-
     }
 
     @DisplayName("Test save a student")
