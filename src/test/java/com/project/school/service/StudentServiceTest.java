@@ -10,9 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.reflect.InvocationTargetException;
@@ -73,11 +71,19 @@ public class StudentServiceTest {
     @Test
     void orderAgeStudents() {
 
-        when(repo.findAll()).thenReturn(list);
-        Pageable page = PageRequest.of(1, 1);
-        List<Student> result = service.findAllByOrderAgeDesc(page);
+        Pageable pageable = PageRequest.of(0, 3);  // Suponiendo una página de tamaño 3
+
+        Page<Student> pagedResult = new PageImpl<>(list, pageable, list.size());
+
+        when(repo.findAll(pageable)).thenReturn(pagedResult);
+
+        List<Student> result = service.findAllByOrderAgeDesc(pageable);
 
         assertEquals(3, result.size());
+        assertEquals(24, result.get(0).getAge());
+        assertEquals(22, result.get(1).getAge());
+        assertEquals(21, result.get(2).getAge());
+
         assertEquals("name", result.get(0).getName());
         assertEquals("name", result.get(1).getName());
         assertEquals("name", result.get(2).getName());
@@ -89,7 +95,6 @@ public class StudentServiceTest {
     void update () throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
         when(repo.findById(any())).thenReturn(Optional.of(student));
-        repo.findById(4).get().setAge(31);
         when(repo.save(any())).thenReturn(student);
 
         Student result = service.update(student, student.getIdStudent());
