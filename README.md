@@ -3,14 +3,6 @@ Desarrollo de una API REST para un sistema de gestión escolar utilizando Java y
 ## Diagrama entidad - relacion
 ![Diagrama entidad relacion](src/main/java/com/project/school/img/modelo_entidad_relacion.png)
 
-<<<<<<< HEAD
-## Dates of ingress for testing
-
-
-# Swagger in process
-
-=======
->>>>>>> 1a8663c8e557f86538d0ae38c36e8294a664a20c
 
 
  
