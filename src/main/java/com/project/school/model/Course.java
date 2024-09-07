@@ -40,4 +40,7 @@ public class Course {
     @Column(nullable = false)
     private boolean enabled;
 
+    public Integer getIdCourse() {
+        return idCourse;
+    }
 }

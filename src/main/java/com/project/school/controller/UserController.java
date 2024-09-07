@@ -3,6 +3,7 @@ package com.project.school.controller;
 import com.project.school.config.SwaggerConfig;
 import com.project.school.dto.UserDto;
 import com.project.school.model.User;
+import com.project.school.security.WebSecurityConfig;
 import com.project.school.service.IUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -48,7 +49,6 @@ public class UserController {
     @PostMapping("/save")
 //    @PreAuthorize("@authServiceImpl.hasAccess('ADMIN')")
     public ResponseEntity<UserDto> save( @Valid @RequestBody UserDto userDto) {
-
         User param = service.save(convertToUser(userDto));
         return new ResponseEntity<>(convertToDto(param), HttpStatus.CREATED);
     }
